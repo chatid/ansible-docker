@@ -1,0 +1,19 @@
+---
+# defaults file for chatid.docker
+docker_apt_key_id: A88D21E9
+docker_apt_key_url: http://get.docker.io/gpg
+docker_apt_repository: deb http://get.docker.io/ubuntu docker main
+docker_pkg_name: lxc-docker
+
+# A list of registries. e.g.
+# docker_registries:
+#   - hostname: docker.chatid.com
+#     ca_cert: path/to/ca.crt
+docker_registries: []
+
+# A list of DNS servers to configure the docker daemon with. e.g.
+# docker_dns_servers: ['8.8.8.8', '8.8.4.4']
+docker_dns_servers: []
+
+# docker_tcp_host: 0.0.0.0
+# docker_tcp_port: 2345

@@ -1,0 +1,12 @@
+---
+- name: registries | add registry directories
+  file: >
+    path=/etc/docker/certs.d/{{ item.hostname }}
+    state=directory owner=root group=docker mode=644
+  with_items: docker_registries
+
+- name: registries | add registy CA certs
+  copy: >
+    src={{ item.ca_cert }} dest=/etc/docker/certs.d/{{ item.hostname }}/ca.crt
+    owner=root group=docker mode=644
+  with_items: docker_registries

@@ -1,0 +1,22 @@
+---
+- name: install | add apt repo key
+  apt_key:
+    id: '{{ docker_apt_key_id }}'
+    url: '{{ docker_apt_key_url }}'
+
+- name: install | add apt repo
+  apt_repository:
+    repo: '{{ docker_apt_repository }}'
+    update_cache: yes
+
+- name: install | install/update package
+  apt: name={{ docker_pkg_name }} update_cache=yes cache_valid_time=86400
+
+- name: install | render defaults
+  template: src=defaults dest=/etc/default/docker owner=root group=root
+  register: render_defaults_result
+
+- name: install | reload daemon
+  service: name=docker state=reloaded
+  when: render_defaults_result.changed
+
