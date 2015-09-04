@@ -1,16 +1,9 @@
 ---
-- name: install | add apt repo key
-  apt_key:
-    id: '{{ docker_apt_key_id }}'
-    url: '{{ docker_apt_key_url }}'
+- name: install | create docker group
+  group: name=docker
 
-- name: install | add apt repo
-  apt_repository:
-    repo: '{{ docker_apt_repository }}'
-    update_cache: yes
-
-- name: install | install/update package
-  apt: name={{ docker_pkg_name }} update_cache=yes cache_valid_time=86400
+- name: install | run install script
+  shell: curl -sSL https://get.docker.com/ | sh
 
 - name: install | render defaults
   template: src=defaults dest=/etc/default/docker owner=root group=root
