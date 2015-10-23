@@ -1,13 +1,6 @@
 ---
-# We dont want to blindly re-install or update Docker
-- command: which docker
-  ignore_errors: yes
-  changed_when: False
-  register: docker_installed
-
 - include: install.yml
-  when: docker_installed.rc != 0
-  tags: [install]
+  tags: install
 
 - include: registries.yml
-  tags: [configure]
+  tags: configure

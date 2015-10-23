@@ -1,15 +1,26 @@
 ---
-- name: install | create docker group
-  group: name=docker
+- name: install | add docker gpg key
+  apt_key:
+    keyserver: pgp.mit.edu
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+    state: present
 
-- name: install | run install script
-  shell: curl -sSL https://get.docker.com/ | sh
+- name: install | add docker apt repo
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main"
+    update_cache: yes
+    state: present
+
+- name: install | install docker engine
+  apt:
+    name: docker-engine
+    state: present
 
 - name: install | render defaults
-  template: src=defaults dest=/etc/default/docker owner=root group=root
-  register: render_defaults_result
-
-- name: install | reload daemon
-  service: name=docker state=reloaded
-  when: render_defaults_result.changed
-
+  template:
+    src: defaults
+    dest: /etc/default/docker
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload docker
