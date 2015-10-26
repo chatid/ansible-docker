@@ -1,0 +1,10 @@
+---
+- name: python | install pip
+  apt:
+    name: python-pip
+    state: present
+
+- name: python | install docker-py via pip
+  pip:
+    name: docker-py
+    state: present

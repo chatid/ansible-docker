@@ -2,5 +2,8 @@
 - include: install.yml
   tags: install
 
+- include: python.yml
+  tags: python
+
 - include: registries.yml
   tags: configure
