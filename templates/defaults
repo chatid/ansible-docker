@@ -1,10 +1,11 @@
 # Docker Upstart and SysVinit configuration file
 
-DOCKER_OPTS="-H unix:///var/run/docker.sock"
+DOCKER_OPTS="-H {{ docker_socket_uri }}"
 
-{% if docker_tcp_host is defined %}
-DOCKER_OPTS="$DOCKER_OPTS -H tcp://{{ docker_tcp_host }}:{{ docker_tcp_port }}"
-{% endif %}
+{% if docker_socket_uri.startswith('unix://') -%}
+DOCKER_OPTS="$DOCKER_OPTS -G {{ docker_socket_group }}"
+{%- endif %}
+
 {% for dns in docker_dns_servers %}
 DOCKER_OPTS="$DOCKER_OPTS --dns {{ dns }}"
 {% endfor %}

@@ -1,4 +1,6 @@
 ---
+docker_socket_uri: unix:///var/run/docker.sock
+docker_socket_group: docker
 # defaults file for chatid.docker
 # A list of registries. e.g.
 # docker_registries:
