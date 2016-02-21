@@ -4,6 +4,3 @@
 
 - include: python.yml
   tags: python
-
-- include: registries.yml
-  tags: configure

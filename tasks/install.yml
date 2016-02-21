@@ -1,7 +1,7 @@
 ---
 - name: install | add docker gpg key
   apt_key:
-    keyserver: pgp.mit.edu
+    keyserver: hkp://p80.pool.sks-keyservers.net:80
     id: 58118E89F3A912897C070ADBF76221572C52609D
     state: present
 

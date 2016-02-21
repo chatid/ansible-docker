@@ -20,5 +20,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = true
     ansible.playbook = "test.yml"
+    ansible.skip_tags = ENV['ANSIBLE_SKIP_TAGS']
+    ansible.tags = ENV['ANSIBLE_TAGS']
+    ansible.extra_vars = {
+      role_name: Dir.pwd.split('/')[-2]
+    }
   end
 end
